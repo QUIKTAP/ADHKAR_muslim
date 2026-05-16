@@ -72,6 +72,7 @@
     border-radius: 50px; font-weight: 700 !important; font-size: .82rem !important;
     box-shadow: 0 4px 16px rgba(124,58,237,.35);
     transition: opacity .3s, transform .2s !important;
+    cursor: none;
   }
   .nav-btn:hover { opacity: .9; transform: translateY(-1px); }
 
@@ -141,9 +142,9 @@
     padding:13px 30px; border-radius:50px; font-family:'Tajawal',sans-serif;
     font-weight:700; font-size:.93rem; text-decoration:none;
     display:inline-block; cursor:none; transition:transform .2s, box-shadow .3s;
-    letter-spacing:.02em;
+    letter-spacing:.02em; border: none;
   }
-  .btn-p { background:var(--grad); color:white; box-shadow:0 6px 24px rgba(124,58,237,.4); border:none; }
+  .btn-p { background:var(--grad); color:white; box-shadow:0 6px 24px rgba(124,58,237,.4); }
   .btn-p:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(124,58,237,.5); }
   .btn-g { background:transparent; color:var(--purple); border:1.5px solid rgba(124,58,237,.35); }
   .btn-g:hover { background:rgba(124,58,237,.06); border-color:var(--purple); transform:translateY(-3px); }
@@ -199,14 +200,14 @@
   .card-label { font-size:.65rem;color:var(--text-soft);letter-spacing:.04em; }
 
   /* SCROLL HINT */
-  .scroll-h {
-    position:absolute; bottom:32px; right:60px;
-    display:flex; align-items:center; gap:10px;
-    font-size:.7rem; color:var(--text-soft);
-    opacity:0; animation:up .7s 1.3s forwards;
+  .shint {
+    position:absolute;bottom:30px;right:60px;
+    display:flex;align-items:center;gap:9px;
+    font-size:.68rem;color:var(--text-soft);
+    opacity:0;animation:up .7s 1.3s forwards;
   }
-  .sl { width:34px;height:1px;background:linear-gradient(to left,var(--purple),transparent);position:relative;overflow:hidden; }
-  .sl::after { content:'';position:absolute;top:0;right:-100%;width:100%;height:100%;background:var(--purple);animation:sl 2.2s ease-in-out infinite; }
+  .sl { width:32px;height:1px;background:linear-gradient(to left,var(--purple),transparent);position:relative;overflow:hidden; }
+  .sl::after {content:'';position:absolute;top:0;right:-100%;width:100%;height:100%;background:var(--purple);animation:sl 2.2s ease-in-out infinite;}
   @keyframes sl{0%{right:-100%;}60%{right:100%;}100%{right:100%;}}
 
   /* SECTIONS COMMON */
@@ -377,7 +378,32 @@
   .prod-name { font-size:1.3rem;font-weight:800;margin-bottom:9px;color:var(--text); }
   .prod-desc { font-size:.85rem;color:var(--text-soft);line-height:1.7;margin-bottom:26px; }
   .prod-price { font-size:2rem;font-weight:800;line-height:1;margin-bottom:5px; }
-  .prod-sub { font-size:.76rem;color:var(--text-soft); }
+  .prod-sub { font-size:.76rem;color:var(--text-soft);margin-bottom:20px; }
+
+  /* ✅ FIX: Order button on product cards */
+  .prod-order-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 12px 28px;
+    background: var(--grad);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+    cursor: none;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(124,58,237,.35);
+    transition: transform .2s, box-shadow .3s, opacity .2s;
+    letter-spacing: .02em;
+  }
+  .prod-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(124,58,237,.48);
+    opacity: .93;
+  }
 
   /* Google Review Stand */
   .google-stand { display:flex;flex-direction:column;align-items:center; }
@@ -509,16 +535,78 @@
   .reveal { opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease; }
   .reveal.in { opacity:1;transform:translateY(0); }
 
-  /* Scroll hint */
-  .shint {
-    position:absolute;bottom:30px;right:60px;
-    display:flex;align-items:center;gap:9px;
-    font-size:.68rem;color:var(--text-soft);
-    opacity:0;animation:up .7s 1.3s forwards;
+  /* ✅ FIX: ORDER MODAL */
+  #orderModal {
+    position: fixed; inset: 0;
+    background: rgba(10, 5, 30, 0.65);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
   }
-  .sl { width:32px;height:1px;background:linear-gradient(to left,var(--purple),transparent);position:relative;overflow:hidden; }
-  .sl::after {content:'';position:absolute;top:0;right:-100%;width:100%;height:100%;background:var(--purple);animation:sl 2.2s ease-in-out infinite;}
-  @keyframes sl{0%{right:-100%;}60%{right:100%;}100%{right:100%;}}
+  #orderModal.open {
+    display: flex;
+  }
+  .modal-box {
+    background: white;
+    width: 92%;
+    max-width: 440px;
+    border-radius: 24px;
+    padding: 36px 32px 28px;
+    position: relative;
+    animation: pop .35s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 40px 100px rgba(124,58,237,.22), 0 0 0 1px rgba(124,58,237,.1);
+  }
+  @keyframes pop { from{transform:scale(.82) translateY(20px);opacity:0;} to{transform:scale(1) translateY(0);opacity:1;} }
+  .modal-close {
+    position: absolute; top: 16px; left: 16px;
+    width: 30px; height: 30px;
+    background: rgba(124,58,237,.08); border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; cursor: none; color: var(--purple);
+    transition: background .2s;
+  }
+  .modal-close:hover { background: rgba(124,58,237,.15); }
+  .modal-title {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800;
+    margin-bottom: 6px; color: var(--text);
+  }
+  .modal-product {
+    font-size: .82rem; color: var(--purple); font-weight: 700;
+    background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.2);
+    border-radius: 50px; padding: 4px 14px; display: inline-block;
+    margin-bottom: 22px; letter-spacing: .03em;
+  }
+  .modal-field {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid rgba(124,58,237,.18);
+    border-radius: 12px; font-family: 'Tajawal', sans-serif;
+    font-size: .92rem; color: var(--text);
+    margin-bottom: 12px; outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    background: #fafaff;
+  }
+  .modal-field:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(124,58,237,.1);
+    background: white;
+  }
+  .modal-field::placeholder { color: #aaa; }
+  .modal-send {
+    width: 100%; padding: 14px;
+    background: var(--grad); color: white; border: none;
+    border-radius: 14px; font-family: 'Tajawal', sans-serif;
+    font-weight: 700; font-size: .98rem; cursor: none;
+    box-shadow: 0 6px 24px rgba(124,58,237,.4);
+    transition: transform .2s, box-shadow .3s, opacity .2s;
+    margin-top: 4px;
+  }
+  .modal-send:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(124,58,237,.5); }
+  .modal-note {
+    text-align: center; font-size: .72rem; color: var(--text-soft);
+    margin-top: 12px;
+  }
 
   @media(max-width:900px){
     nav{padding:16px 18px;} nav ul{display:none;}
@@ -563,7 +651,8 @@
     <p class="hero-sub">حلول رقمية للأعمال الحديثة باستخدام NFC والذكاء الاصطناعي</p>
     <p class="hero-sub2">بسّط تواصلك وخلي تجربتك أسرع وأكثر احترافية</p>
     <div class="actions">
-      <a href="#products" class="btn btn-p">اكتشف المنتجات</a>
+      <!-- ✅ FIX: hero CTA opens modal instead of tel: -->
+      <button onclick="openOrder('Klyx Card — بطاقة NFC')" class="btn btn-p">اكتشف المنتجات</button>
       <a href="#features" class="btn btn-g">المميزات</a>
     </div>
   </div>
@@ -671,7 +760,6 @@
   <div class="section-pill">🛍 منتجاتنا</div>
   <h2 class="sec-title">اختار <span class="grad-text">الفورمات</span> المناسب</h2>
 
-  <!-- Speed/Design/Fit row -->
   <div style="display:flex;gap:0;background:white;border:1px solid var(--border);border-radius:18px;margin-bottom:32px;overflow:hidden;">
     <div style="flex:1;padding:28px 24px;text-align:center;border-left:1px solid var(--border);">
       <div style="font-size:1.6rem;margin-bottom:8px;">⚡</div>
@@ -691,6 +779,7 @@
   </div>
 
   <div class="products-grid">
+    <!-- Card 1 -->
     <div class="prod-card feat reveal">
       <div class="prod-badge">⭐ الأكثر طلباً</div>
       <div class="prod-vis">
@@ -706,8 +795,11 @@
       <p class="prod-desc">بطاقة العمل المُعاد اختراعها. حجم قياسي، تشطيب مات فاخر، شريحة NFC مدمجة. دائمة، أنيقة، لا تُنسى.</p>
       <div class="prod-price grad-text">49 TND</div>
       <div class="prod-sub">للبطاقة الواحدة — شحن مجاني</div>
+      <!-- ✅ FIX: Order button added -->
+      <button class="prod-order-btn" onclick="openOrder('Klyx Card — بطاقة NFC (49 TND)')">🛒 اطلب الآن</button>
     </div>
 
+    <!-- Card 2 -->
     <div class="prod-card reveal">
       <div class="prod-vis">
         <div class="mk">
@@ -720,13 +812,14 @@
       <p class="prod-desc">دايماً معاك. مفتاح NFC صغير يرافق يومياتك — خفيف، عملي، واحترافي في نفس الوقت.</p>
       <div class="prod-price grad-text">39 TND</div>
       <div class="prod-sub">للقطعة الواحدة — شحن مجاني</div>
+      <!-- ✅ FIX: Order button added -->
+      <button class="prod-order-btn" onclick="openOrder('Klyx Key — porte-clé NFC (39 TND)')">🛒 اطلب الآن</button>
     </div>
 
-    <!-- Google Review Stand -->
+    <!-- Card 3 -->
     <div class="prod-card reveal">
       <div class="prod-badge" style="background:linear-gradient(135deg,#4285F4,#34A853);">⭐ للمحلات</div>
       <div class="prod-vis">
-        <!-- Google Review Stand mockup -->
         <div class="google-stand">
           <div class="stand-panel">
             <div class="stand-nfc-icon">
@@ -748,12 +841,13 @@
       <p class="prod-desc">أداة احترافية لمحلك أو مطعمك. زبونك يقرب هاتفه أو يسكن QR — مباشرة لصفحة Google Review تاعك.</p>
       <div class="prod-price grad-text">79 TND</div>
       <div class="prod-sub">للقطعة — شحن مجاني</div>
+      <!-- ✅ FIX: Order button added -->
+      <button class="prod-order-btn" onclick="openOrder('Klyx Stand — Google Review (79 TND)')">🛒 اطلب الآن</button>
     </div>
 
-    <!-- NFC Epoxy Round Tag -->
+    <!-- Card 4 -->
     <div class="prod-card reveal">
       <div class="prod-vis">
-        <!-- Epoxy round tag mockup -->
         <div class="epoxy-tag">
           <div class="epoxy-inner">
             <div class="epoxy-title">MENU</div>
@@ -766,9 +860,7 @@
               </div>
               <div>
                 <div class="epoxy-tap">TAP OR SCAN</div>
-                <div class="epoxy-qr-mini">
-                  <div class="mini-qr-block"></div>
-                </div>
+                <div class="epoxy-qr-mini"><div class="mini-qr-block"></div></div>
               </div>
             </div>
             <div class="logo-placeholder" style="margin-top:6px;font-size:.42rem;padding:3px 6px;">VOTRE LOGO</div>
@@ -784,6 +876,8 @@
       </div>
       <div class="prod-price grad-text">29 TND</div>
       <div class="prod-sub">للقطعة — مقاوم للماء والخدش</div>
+      <!-- ✅ FIX: Order button added -->
+      <button class="prod-order-btn" onclick="openOrder('Klyx Menu — منيو NFC دائري (29 TND)')">🛒 اطلب الآن</button>
     </div>
   </div>
 </section>
@@ -810,7 +904,8 @@
   <h2>مستعد تترك <span class="grad-text">انطباع لا يُنسى؟</span></h2>
   <p>انضم لمئات المحترفين اللي يتواصلوا بطريقة مختلفة</p>
   <div class="actions">
-    <a href="tel:+21629691046" class="btn btn-p">اطلب بطاقتك الآن</a>
+    <!-- ✅ FIX: CTA opens modal -->
+    <button onclick="openOrder('Klyx Card — بطاقة NFC (49 TND)')" class="btn btn-p">اطلب بطاقتك الآن</button>
     <a href="#products" class="btn btn-g">تعرف على الباقات</a>
   </div>
 </section>
@@ -833,8 +928,25 @@
   <div class="f-copy">© 2026 Klyx. جميع الحقوق محفوظة.</div>
 </footer>
 
+<!-- ✅ FIX: ORDER MODAL — redesigned & fully functional -->
+<div id="orderModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">🛒 اطلب المنتج</div>
+    <div id="modalProduct" class="modal-product"></div>
+
+    <input id="name"  class="modal-field" placeholder="الاسم الكامل" />
+    <input id="phone" class="modal-field" placeholder="رقم الهاتف" style="direction:ltr;" />
+    <input id="city"  class="modal-field" placeholder="المدينة" />
+    <input id="qty"   class="modal-field" type="number" placeholder="الكمية" value="1" min="1" />
+
+    <button class="modal-send" onclick="sendOrder()">إرسال الطلب عبر WhatsApp ✉</button>
+    <div class="modal-note">سيتم إرسال طلبك مباشرة إلى WhatsApp</div>
+  </div>
+</div>
+
 <script>
-  // Cursor
+  // ── Cursor ──────────────────────────────────────────
   const cur = document.getElementById('cur');
   const ring = document.getElementById('ring');
   let mx=0,my=0,rx=0,ry=0;
@@ -852,9 +964,9 @@
     el.addEventListener('mouseleave',()=>{cur.classList.remove('big');ring.classList.remove('big');});
   });
 
-  // Scroll reveal
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach((e,i)=>{
+  // ── Scroll reveal ────────────────────────────────────
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
       if(e.isIntersecting){
         setTimeout(()=>e.target.classList.add('in'), e.target.dataset.d||0);
         obs.unobserve(e.target);
@@ -865,72 +977,62 @@
     el.dataset.d = (i%3)*100;
     obs.observe(el);
   });
-</script>
-</body>
-<!-- ORDER MODAL -->
-<div id="orderModal" style="position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:99999;">
-  <div style="background:white;width:92%;max-width:420px;border-radius:20px;padding:22px;position:relative;animation:pop .3s ease;">
-    
-    <h2 style="font-family:'Syne';margin-bottom:14px;">🛒 اطلب المنتج</h2>
 
-    <input id="name" placeholder="الاسم" style="width:100%;padding:10px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;">
-    <input id="phone" placeholder="رقم الهاتف" style="width:100%;padding:10px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;">
-    <input id="city" placeholder="المدينة" style="width:100%;padding:10px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;">
-    <input id="qty" type="number" placeholder="الكمية" value="1" style="width:100%;padding:10px;margin-bottom:10px;border:1px solid #ddd;border-radius:10px;">
+  // ── Modal ────────────────────────────────────────────
+  let currentProduct = "";
 
-    <div id="selectedProduct" style="font-size:.85rem;margin-bottom:12px;color:#555;"></div>
+  function openOrder(product) {
+    currentProduct = product;
+    document.getElementById("modalProduct").textContent = "📦 " + product;
+    // ✅ Clear fields on each open
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("city").value = "";
+    document.getElementById("qty").value = "1";
+    // ✅ Use class toggle instead of style.display
+    document.getElementById("orderModal").classList.add("open");
+  }
 
-    <button onclick="sendOrder()" style="width:100%;padding:12px;background:linear-gradient(135deg,#7c3aed,#3b82f6);color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;">
-      إرسال الطلب
-    </button>
+  function closeModal() {
+    document.getElementById("orderModal").classList.remove("open");
+  }
 
-    <button onclick="closeModal()" style="margin-top:10px;width:100%;padding:10px;background:#eee;border:none;border-radius:12px;">
-      إغلاق
-    </button>
-  </div>
-</div>
+  // ✅ Close on backdrop click
+  document.getElementById("orderModal").addEventListener("click", function(e) {
+    if (e.target === this) closeModal();
+  });
 
-<style>
-@keyframes pop { from{transform:scale(.8);opacity:0;} to{transform:scale(1);opacity:1;} }
-</style>
+  // ✅ Close on Escape key
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeModal();
+  });
 
-<script>
-let currentProduct = "";
+  function sendOrder() {
+    const name  = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const city  = document.getElementById("city").value.trim();
+    const qty   = document.getElementById("qty").value.trim();
 
-function openOrder(product){
-  currentProduct = product;
-  document.getElementById("selectedProduct").innerText = "📦 المنتج: " + product;
-  document.getElementById("orderModal").style.display = "flex";
-}
+    // ✅ Basic validation
+    if (!name || !phone) {
+      alert("من فضلك أدخل الاسم ورقم الهاتف");
+      return;
+    }
 
-function closeModal(){
-  document.getElementById("orderModal").style.display = "none";
-}
-
-function sendOrder(){
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let city = document.getElementById("city").value;
-  let qty = document.getElementById("qty").value;
-
-  let msg =
-`🛒 طلب جديد KLYX:
+    const msg =
+`🛒 طلب جديد KLYX
+━━━━━━━━━━━━━━━
 📦 المنتج: ${currentProduct}
 👤 الاسم: ${name}
 📞 الهاتف: ${phone}
 🏙 المدينة: ${city}
-🔢 الكمية: ${qty}`;
+🔢 الكمية: ${qty}
+━━━━━━━━━━━━━━━`;
 
-  // WhatsApp
-  let wa = "https://wa.me/21629691046?text=" + encodeURIComponent(msg);
-  window.open(wa, "_blank");
-
-  // Email fallback
-  let mail = "mailto:contact@klyx.tn?subject=New Order&body=" + encodeURIComponent(msg);
-  window.open(mail, "_blank");
-
-  closeModal();
-}
+    const wa = "https://wa.me/21629691046?text=" + encodeURIComponent(msg);
+    window.open(wa, "_blank");
+    closeModal();
+  }
 </script>
-
+</body>
 </html>
