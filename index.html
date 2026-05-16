@@ -1,45 +1,274 @@
+# KLYX — PREMIUM FULL MERGED VERSION (PRO + ORDER SYSTEM)
+
+👉 انسخ الملف هذا كامل واحفظه:
+index.html
+
+---
+
+```html
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أذكار المسلم</title>
+<title>KLYX — NFC Smart Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
-body {
-  font-family: Arial;
-  text-align:center;
-  background:#f8f9fb;
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+
+:root{
+--p:#7c3aed;
+--b:#3b82f6;
+--c:#06b6d4;
+--t:#1a1040;
+--s:#64748b;
+--g:linear-gradient(135deg,#7c3aed,#3b82f6,#06b6d4);
+--bg:#ffffff;
+--soft:#f6f7ff;
 }
 
-h1 {
-  margin-top:40px;
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;}
+
+/* NAV */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:1000;
+background:rgba(255,255,255,.92);
+backdrop-filter:blur(20px);
+display:flex;justify-content:space-between;
+padding:16px 40px;
+border-bottom:1px solid #eee;
 }
 
-.menu a {
-  display:block;
-  margin:15px auto;
-  padding:15px;
-  width:200px;
-  background:#111;
-  color:white;
-  text-decoration:none;
-  border-radius:12px;
+nav a{margin:0 10px;text-decoration:none;color:var(--s);font-weight:700;}
+.logo{font-weight:900;background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* HERO */
+.hero{
+padding:140px 40px 90px;
+text-align:center;
+background:linear-gradient(160deg,#faf8ff,#fff);
 }
+
+.hero h1{font-size:3.5rem;line-height:1.2;}
+.grad{-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:var(--g);}
+.hero p{color:var(--s);margin-top:10px;}
+
+.btn{
+display:inline-block;margin-top:20px;
+padding:12px 26px;
+border-radius:30px;
+font-weight:800;
+text-decoration:none;
+cursor:pointer;
+}
+.btn-primary{background:var(--g);color:#fff;}
+
+/* SECTION */
+.section{padding:100px 40px;}
+.title{font-size:2rem;margin-bottom:40px;font-weight:900;}
+
+/* PRODUCTS */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.card{
+background:#fff;
+border:1px solid #eee;
+border-radius:18px;
+padding:22px;
+transition:.3s;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.06);}
+.price{font-size:1.4rem;font-weight:900;margin-top:10px;}
+
+.order-btn{
+margin-top:12px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:12px;
+background:var(--g);
+color:#fff;
+font-weight:800;
+cursor:pointer;
+}
+
+/* FEATURES (from premium vibe simplified) */
+.features{
+background:var(--soft);
+padding:100px 40px;
+text-align:center;
+}
+
+/* FORM */
+.form-box{
+max-width:520px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:18px;
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+.submit{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:var(--g);
+color:#fff;
+font-weight:900;
+cursor:pointer;
+}
+
+/* BACK TO TOP */
+.top{
+position:fixed;bottom:80px;right:20px;
+background:#111;color:#fff;
+padding:12px 14px;
+border-radius:50%;
+}
+
+/* WHATSAPP */
+.wa{
+position:fixed;bottom:20px;left:20px;
+width:55px;height:55px;
+border-radius:50%;
+background:#25D366;
+display:flex;align-items:center;justify-content:center;
+font-size:1.4rem;
+color:#fff;
+}
+
+@media(max-width:900px){.grid{grid-template-columns:1fr;}}
+
 </style>
-
 </head>
 
 <body>
 
-<h1>📿 أذكار المسلم</h1>
-
-<div class="menu">
-  <a href="morning.html">🌅 أذكار الصباح</a>
-  <a href="evening.html">🌙 أذكار المساء</a>
-  <a href="sleep.html">😴 أذكار النوم</a>
-  <a href="prayer.html">🕌 أذكار بعد الصلاة</a>
+<nav>
+<div class="logo">KLYX</div>
+<div>
+<a href="#products">المنتجات</a>
+<a href="#features">المميزات</a>
+<a href="#order">الطلب</a>
 </div>
+</nav>
+
+<!-- HERO PREMIUM SIMPLE -->
+<section class="hero">
+<h1>KLYX <span class="grad">NFC Premium</span></h1>
+<p>حلول ذكية + تصميم احترافي + طلب مباشر</p>
+<a href="#products" class="btn btn-primary">ابدأ الآن</a>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section">
+<h2 class="title">المنتجات</h2>
+
+<div class="grid">
+<div class="card">
+<h3>KLYX CARD</h3>
+<p>بطاقة NFC احترافية</p>
+<div class="price">49 TND</div>
+<button class="order-btn" onclick="select('KLYX CARD')">اطلب الآن</button>
+</div>
+
+<div class="card">
+<h3>KLYX KEY</h3>
+<p>porte clé NFC</p>
+<div class="price">39 TND</div>
+<button class="order-btn" onclick="select('KLYX KEY')">اطلب الآن</button>
+</div>
+
+<div class="card">
+<h3>REVIEW STAND</h3>
+<p>Google Review NFC</p>
+<div class="price">79 TND</div>
+<button class="order-btn" onclick="select('REVIEW STAND')">اطلب الآن</button>
+</div>
+</div>
+</section>
+
+<!-- ORDER FORM -->
+<section id="order" class="section">
+<h2 class="title">إتمام الطلب</h2>
+
+<div class="form-box">
+<form onsubmit="send(event)">
+<input id="name" placeholder="الاسم" required>
+<input id="phone" placeholder="رقم الهاتف" required>
+
+<select id="product">
+<option>KLYX CARD</option>
+<option>KLYX KEY</option>
+<option>REVIEW STAND</option>
+</select>
+
+<input id="qty" type="number" placeholder="الكمية" required>
+<input id="city" placeholder="المدينة" required>
+
+<button class="submit">إرسال الطلب</button>
+</form>
+</div>
+</section>
+
+<a href="#products" class="top">↑</a>
+<a href="https://wa.me/21629691046" class="wa">💬</a>
+
+<script>
+function select(p){
+document.getElementById('product').value=p;
+document.getElementById('order').scrollIntoView({behavior:'smooth'});
+}
+
+function send(e){
+e.preventDefault();
+
+let n=document.getElementById('name').value;
+let p=document.getElementById('phone').value;
+let pr=document.getElementById('product').value;
+let q=document.getElementById('qty').value;
+let c=document.getElementById('city').value;
+
+let msg=`طلب جديد:%0Aالاسم: ${n}%0Aالهاتف: ${p}%0Aالمنتج: ${pr}%0Aالكمية: ${q}%0Aالمدينة: ${c}`;
+
+window.open(`https://wa.me/21629691046?text=${msg}`,'_blank');
+window.location.href=`mailto:youremail@gmail.com?subject=KLYX Order&body=${msg}`;
+
+alert('تم إرسال الطلب 🚀');
+}
+</script>
 
 </body>
 </html>
+```
+
+---
+
+# 🔥 WHAT YOU GOT NOW
+
+✔ Premium design simplified
+✔ Full product system
+✔ One-click order buttons
+✔ Smart order form
+✔ WhatsApp + Email notifications
+✔ Mobile friendly
+
+---
+
+# 🚀 NEXT LEVEL (if you want)
+
+* Firebase database (real orders panel)
+* Admin dashboard
+* Payment integration (Flouci / D17)
+* Auto invoice PDF
